@@ -6,8 +6,8 @@ An end-to-end evaluation framework designed to benchmark, monitor, and statistic
 This project simulates a high-stakes AI R&D environment. It automates agent performance logging into **Google BigQuery** and provides an adaptive statistical decision-making layer through an interactive **Streamlit** dashboard.
 
 ## 📊 Scientific Dashboard
-![Dashboard Preview](dashboard_review.png)
-![Dashboard Preview2](dashboard_review2.png)
+![Dashboard Preview](assets/dashboard_review.png)
+![Dashboard Preview2](assets/dashboard_review2.png)
 *Interactive monitoring of success scores, latency, and distribution outliers.*
 
 ## 🛡️ Statistical Rigor (The Scientist's Signature)
