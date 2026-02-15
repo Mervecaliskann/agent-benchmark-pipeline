@@ -1,0 +1,8 @@
+google-cloud-bigquery
+pandas
+pandas-gbq
+scipy
+scikit-learn
+streamlit
+numpy
+plotly
