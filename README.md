@@ -1,29 +1,57 @@
 # 🔬 AI Agentic Benchmarking & Statistical Lab
 
-An end-to-end evaluation framework designed to benchmark, monitor, and statistically validate the reasoning performance of LLM Agent architectures (ReAct vs. Plan-and-Execute).
+This project is a high-stakes R&D framework designed to benchmark, monitor, and statistically validate the reasoning performance of LLM Agent architectures (ReAct vs. Plan-and-Execute). It ensures that architectural decisions are driven by scientific evidence rather than noise.
 
-## 🚀 Strategic Overview
-This project simulates a high-stakes AI R&D environment. It automates agent performance logging into **Google BigQuery** and provides an adaptive statistical decision-making layer through an interactive **Streamlit** dashboard.
+---
 
-## 📊 Scientific Dashboard
-![Dashboard Preview](assets/dashboard_review.png)
-![Dashboard Preview2](assets/dashboard_review2.png)
-*Interactive monitoring of success scores, latency, and distribution outliers.*
+## 📊 Scientific Dashboard & Insights
 
-## 🛡️ Statistical Rigor (The Scientist's Signature)
+The system provides an interactive monitoring layer for success scores, latency, and distribution outliers.
+
+![AI Benchmarking Dashboard](assets/dashboard.png)
+*Figure 1: Statistical Lab showing an average success score of 84.75% across 500 simulations.*
+
+### 🛡️ Statistical Rigor (The Scientist's Signature)
 Unlike simple average-based comparisons, this pipeline implements an **Adaptive Statistical Evaluation Layer**:
 
-1. **Assumption Testing:** Automated verification of Normality (**Shapiro-Wilk**) and Variance Equality (**Levene’s Test**).
-2. **Adaptive Inference:**
-   - **Parametric:** Runs **One-Way ANOVA** if assumptions are met.
-   - **Non-Parametric:** Automatically switches to **Kruskal-Wallis H-Test** if normality is violated.
-3. **P-Value Validation:** Scientific confirmation of whether performance differences are statistically significant ($p < 0.05$) to avoid decision-making based on noise.
+* **Assumption Testing:** Automated verification of Normality (Shapiro-Wilk) and Variance Equality (Levene’s Test).
+* **Adaptive Inference:** The framework detected a normality violation ($p=0.0000$) and automatically performed a **Kruskal-Wallis H-Test** ($p=0.5899$) to ensure scientific validity.
+* **Data-Driven Decision:** No statistically significant difference was found, enabling optimization focused on cost and latency.
 
-## 🛠 Tech Stack
-- **Infrastructure:** Google BigQuery (Cloud Data Warehouse)
-- **Analytics:** Python (Pandas, Numpy, SciPy)
-- **Visualization:** Streamlit & Plotly Express (Interactive charts with outlier mapping)
-- **Version Control:** Git (Production-ready repository structure)
+---
 
-## 📈 Current Insights
-In recent simulations, the framework detected a normality violation ($p=0.0000$) and automatically performed a Kruskal-Wallis test, revealing that the performance difference between architectures was **not statistically significant** ($p=0.5494$), enabling data-driven optimization focused on cost and latency.
+## ☁️ Cloud Data Architecture (Google BigQuery)
+
+All simulation logs are stored in a centralized cloud data warehouse using **Google BigQuery** for full traceability and scalability.
+
+![BigQuery Cloud Logs](assets/bigquery2png.png)
+*Figure 2: Production logs in BigQuery tracking ReAct and Plan-and-Execute architectures.*
+
+* **Automated Ingestion:** A dedicated pipeline uploads 500 rows of detailed simulation data (timestamp, agent_id, success_score, reasoning_steps) to the cloud.
+* **Architecture Comparison:** The system simultaneously tracks multiple AI strategies to identify the most efficient reasoning path.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Infrastructure:** Google BigQuery (Cloud Data Warehouse)
+* **Analytics:** Python (Pandas, Numpy, SciPy)
+* **Visualization:** Streamlit & Plotly Express
+* **Security:** Service Account-based authentication via `credentials.json`.
+
+---
+
+## 📂 Project Structure
+
+* `src/ingestion.py`: The data pipeline responsible for generating and uploading 500 simulation rows to BigQuery.
+* `src/analyzer.py`: The statistical engine that performs automated hypothesis testing.
+* `app.py`: The primary Streamlit dashboard for real-time R&D monitoring.
+* `credentials.json`: Secure Google Cloud authentication key (Git-ignored).
+
+---
+
+### 🚀 Getting Started
+
+1. **Install dependencies:**
+   ```powershell
+   pip install google-cloud-bigquery pandas-gbq pyarrow streamlit scipy plotly
