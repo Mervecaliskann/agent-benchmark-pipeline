@@ -10,7 +10,7 @@ This project is a high-stakes R&D framework designed to benchmark, monitor, and 
 
 The system provides an interactive monitoring layer for success scores, latency, and distribution outliers.
 
-![AI Benchmarking Dashboard](assets/dashboard.png)
+![AI Benchmarking Dashboard](assets/dashboard_real_results.png)
 *Figure 1: Statistical Lab showing an average success score of 96.43% across 84 real agent runs.*
 
 ### 🛡️ Statistical Rigor (The Scientist's Signature)
