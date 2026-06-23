@@ -24,12 +24,13 @@ Unlike simple average-based comparisons, this pipeline implements an **Adaptive 
 
 | Metric | Value |
 | --- | --- |
-| Total runs | 84 (14 questions × 3 reps × 2 architectures) |
-| Average success score | 96.43% |
+| Total runs | 84 (ReAct: 42, Plan-and-Execute: 42) |
+| Successful runs | 81/84 (96.43%) |
 | Normality test (ReAct) | Shapiro-Wilk p = 0.0000 → violated |
 | Variance equality (Levene) | p = 0.0795 |
 | Statistical test used | Kruskal-Wallis H-Test (non-parametric, auto-selected) |
 | Result | H = 3.0741, p = 0.0795 → no statistically significant difference |
+| Recorded in BigQuery | June 23, 2026 |
 
 ---
 
@@ -37,8 +38,8 @@ Unlike simple average-based comparisons, this pipeline implements an **Adaptive 
 
 All simulation logs are stored in a centralized cloud data warehouse using **Google BigQuery** for full traceability and scalability.
 
-![BigQuery Cloud Logs](assets/bigquery2png.png)
-*Figure 2: Production logs in BigQuery tracking ReAct and Plan-and-Execute architectures.*
+![BigQuery Cloud Logs](assets/bigquery_real_results.png)
+*Figure 2: Production logs in BigQuery showing the 84 real agent runs recorded on June 23, 2026.*
 
 * **Automated Ingestion:** A dedicated pipeline runs both agents against 14 finance questions × 3 reps and uploads 84 rows of real run data (timestamp, agent_id, success_score, latency_ms, reasoning_steps) to the cloud.
 * **Architecture Comparison:** The system simultaneously tracks multiple AI strategies to identify the most efficient reasoning path.
