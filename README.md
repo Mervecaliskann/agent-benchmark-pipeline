@@ -2,6 +2,8 @@
 
 This project is a high-stakes R&D framework designed to benchmark, monitor, and statistically validate the reasoning performance of LLM Agent architectures (ReAct vs. Plan-and-Execute). It ensures that architectural decisions are driven by scientific evidence rather than noise.
 
+**This is a real-agent benchmark, not a synthetic simulation.** Every row is produced by actually invoking the ReAct and Plan-and-Execute agents (via the Groq-hosted `llama-3.3-70b-versatile` model) against a fixed set of finance questions, then logging the genuine tool calls, latency, and success outcome of each run.
+
 ---
 
 ## 📊 Scientific Dashboard & Insights
@@ -9,14 +11,25 @@ This project is a high-stakes R&D framework designed to benchmark, monitor, and 
 The system provides an interactive monitoring layer for success scores, latency, and distribution outliers.
 
 ![AI Benchmarking Dashboard](assets/dashboard.png)
-*Figure 1: Statistical Lab showing an average success score of 84.75% across 500 simulations.*
+*Figure 1: Statistical Lab showing an average success score of 96.43% across 84 real agent runs.*
 
 ### 🛡️ Statistical Rigor (The Scientist's Signature)
 Unlike simple average-based comparisons, this pipeline implements an **Adaptive Statistical Evaluation Layer**:
 
 * **Assumption Testing:** Automated verification of Normality (Shapiro-Wilk) and Variance Equality (Levene’s Test).
-* **Adaptive Inference:** The framework detected a normality violation ($p=0.0000$) and automatically performed a **Kruskal-Wallis H-Test** ($p=0.5899$) to ensure scientific validity.
-* **Data-Driven Decision:** No statistically significant difference was found, enabling optimization focused on cost and latency.
+* **Adaptive Inference:** The framework detected a normality violation in the ReAct group ($p=0.0000$) and automatically performed a **Kruskal-Wallis H-Test** ($H=3.0741$, $p=0.0795$) to ensure scientific validity.
+* **Data-Driven Decision:** No statistically significant difference was found between architectures, so the choice between them is driven by cost and latency rather than success rate.
+
+#### Real Benchmark Results
+
+| Metric | Value |
+| --- | --- |
+| Total runs | 84 (14 questions × 3 reps × 2 architectures) |
+| Average success score | 96.43% |
+| Normality test (ReAct) | Shapiro-Wilk p = 0.0000 → violated |
+| Variance equality (Levene) | p = 0.0795 |
+| Statistical test used | Kruskal-Wallis H-Test (non-parametric, auto-selected) |
+| Result | H = 3.0741, p = 0.0795 → no statistically significant difference |
 
 ---
 
@@ -27,7 +40,7 @@ All simulation logs are stored in a centralized cloud data warehouse using **Goo
 ![BigQuery Cloud Logs](assets/bigquery2png.png)
 *Figure 2: Production logs in BigQuery tracking ReAct and Plan-and-Execute architectures.*
 
-* **Automated Ingestion:** A dedicated pipeline uploads 500 rows of detailed simulation data (timestamp, agent_id, success_score, reasoning_steps) to the cloud.
+* **Automated Ingestion:** A dedicated pipeline runs both agents against 14 finance questions × 3 reps and uploads 84 rows of real run data (timestamp, agent_id, success_score, latency_ms, reasoning_steps) to the cloud.
 * **Architecture Comparison:** The system simultaneously tracks multiple AI strategies to identify the most efficient reasoning path.
 
 ---
@@ -43,7 +56,7 @@ All simulation logs are stored in a centralized cloud data warehouse using **Goo
 
 ## 📂 Project Structure
 
-* `src/ingestion.py`: The data pipeline responsible for generating and uploading 500 simulation rows to BigQuery.
+* `src/ingestion.py`: The data pipeline that runs real ReAct/Plan-and-Execute agent calls against the test question set and uploads the resulting 84 rows to BigQuery.
 * `src/analyzer.py`: The statistical engine that performs automated hypothesis testing.
 * `app.py`: The primary Streamlit dashboard for real-time R&D monitoring.
 * `credentials.json`: Secure Google Cloud authentication key (Git-ignored).
