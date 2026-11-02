@@ -18,6 +18,8 @@ Both agents use the same two Yahoo Finance tools (stock price, company fundament
 | --- | --- |
 | Runs | 84 (14 questions × 3 repetitions × 2 architectures) |
 | Successful runs | 81/84 (96.4%) |
+| Success by architecture | ReAct 39/42 · LangGraph 42/42 |
+| Levene (equal variances) | p = 0.08 (same as Kruskal-Wallis: with 0/1 scores both tests compare the failure counts) |
 | Normality (ReAct, Shapiro-Wilk) | p < 0.001 → violated |
 | Test used | Kruskal-Wallis H-test (non-parametric, chosen automatically) |
 | Result | H = 3.07, p = 0.08 → no significant difference |
